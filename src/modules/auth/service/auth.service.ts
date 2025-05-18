@@ -10,6 +10,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../../user/entity/user.entity';
 import { Repository } from 'typeorm';
 import { VerifyDto } from '../dto/verify.dto';
+import { verifySolanaSignature } from '../../../utils/verify-solana-signature';
+import { LoginWalletDto } from '../../user/dto/login-wallet.dto';
 
 @Injectable()
 export class AuthService {
@@ -76,7 +78,8 @@ export class AuthService {
 
   async validateUser(email: string, password: string) {
     const user = await this.userService.findUserByEmail(email);
-    if (!user) return null;
+    if (!user || !user.password) return null;
+
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return null;
@@ -103,6 +106,38 @@ export class AuthService {
       username: loginDto.email,
       sub: {
         name: user.name,
+      },
+    };
+
+    return this.jwtService.sign(payload);
+  }
+
+  async loginWithWallet(loginWalletDto: LoginWalletDto) {
+    const { wallet_address, message, signature } = loginWalletDto;
+
+    // 1. Xác minh chữ ký
+    const isValid = verifySolanaSignature(wallet_address, message, signature);
+    if (!isValid) {
+      throw new UnauthorizedException('Invalid signature');
+    }
+
+    let user = await this.userRepository.findOne({
+      where: { wallet_address },
+    });
+
+    if (!user) {
+      user = this.userRepository.create({
+        wallet_address,
+        name: 'Unnamed User',
+        isVerified: true,
+      });
+
+      await this.userRepository.save(user);
+    }
+
+    const payload = {
+      sub: {
+        wallet: user.wallet_address,
       },
     };
 

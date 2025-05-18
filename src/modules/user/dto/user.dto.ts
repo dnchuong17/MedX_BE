@@ -6,4 +6,9 @@ export class UserDto {
   name: string;
 
   phone?: string;
+  age?: number;
+
+  weight?: number;
+
+  height?: number;
 }
