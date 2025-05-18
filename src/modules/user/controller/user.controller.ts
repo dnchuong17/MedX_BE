@@ -1,7 +1,8 @@
-import { Body, Controller, Param, Put, UseGuards } from '@nestjs/common';
+import {Body, Controller, Get, Param, Put, Req, UseGuards} from '@nestjs/common';
 import { UserService } from '../service/user.service';
 import { UserDto } from '../dto/user.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
 
 @Controller('user')
 export class UserController {
@@ -15,5 +16,11 @@ export class UserController {
     } catch (error) {
       throw new Error(error);
     }
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('me')
+  getMe(@Req() req: Request) {
+    return req.user;
   }
 }

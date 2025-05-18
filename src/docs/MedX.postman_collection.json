@@ -175,6 +175,43 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get me",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjgsIm5hbWUiOiJDaHVvbmcgRG8iLCJlbWFpbCI6ImNodW9uZ2RvMTcyQGdtYWlsLmNvbSJ9LCJpYXQiOjE3NDc1ODAwOTYsImV4cCI6MTc0NzU4MDQ1Nn0.QKE2MRdBHfs-yVvmb7NIBW5F_fgqUIn2m1wItmFCePg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"chuongdo172@gmail.com\",\n    \"password\": \"17122004Chuong\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"me"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

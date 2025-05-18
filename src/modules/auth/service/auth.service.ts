@@ -103,9 +103,10 @@ export class AuthService {
     }
 
     const payload = {
-      username: loginDto.email,
       sub: {
+        id: user.id,
         name: user.name,
+        email: user.email,
       },
     };
 
@@ -115,7 +116,6 @@ export class AuthService {
   async loginWithWallet(loginWalletDto: LoginWalletDto) {
     const { wallet_address, message, signature } = loginWalletDto;
 
-    // 1. Xác minh chữ ký
     const isValid = verifySolanaSignature(wallet_address, message, signature);
     if (!isValid) {
       throw new UnauthorizedException('Invalid signature');
