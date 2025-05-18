@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UserDto } from '../../user/dto/user.dto';
 import { UserService } from '../../user/service/user.service';
 import { MailService } from '../../mail/service/mail.service';
@@ -12,6 +16,7 @@ import { Repository } from 'typeorm';
 import { VerifyDto } from '../dto/verify.dto';
 import { verifySolanaSignature } from '../../../utils/verify-solana-signature';
 import { LoginWalletDto } from '../../user/dto/login-wallet.dto';
+import { LoginPhoneDto } from '../../user/dto/login-phone.dto';
 
 @Injectable()
 export class AuthService {
@@ -80,7 +85,6 @@ export class AuthService {
     const user = await this.userService.findUserByEmail(email);
     if (!user || !user.password) return null;
 
-
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return null;
 
@@ -142,5 +146,83 @@ export class AuthService {
     };
 
     return this.jwtService.sign(payload);
+  }
+
+  async loginWithPhone(loginDto: LoginPhoneDto) {
+    const user = await this.userService.findUserByPhone(loginDto.phone);
+
+    if (!user || !user.password) {
+      throw new UnauthorizedException('Invalid phone or password');
+    }
+
+    const isMatch = await bcrypt.compare(loginDto.password, user.password);
+    if (!isMatch) {
+      throw new UnauthorizedException('Invalid phone or password');
+    }
+
+    if (!user.isVerified) {
+      throw new UnauthorizedException('Phone number has not been verified');
+    }
+
+    const payload = {
+      sub: {
+        id: user.id,
+        name: user.name,
+        phone: user.phone,
+      },
+    };
+
+    return this.jwtService.sign(payload);
+  }
+
+  async registerByPhone(userDto: UserDto) {
+    const { phone, password, name } = userDto;
+
+    if (!phone || !password || !name) {
+      throw new BadRequestException('Phone, name, and password are required');
+    }
+
+    const existing = await this.userService.findUserByPhone(phone);
+    if (existing) {
+      if (existing.isVerified) {
+        throw new BadRequestException('Phone number is already registered');
+      }
+      return { message: 'Please complete verification' };
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = this.userRepository.create({
+      phone,
+      name,
+      password: hashedPassword,
+      isVerified: false,
+      otp: '',
+    });
+
+    await this.userRepository.save(newUser);
+    return { message: 'Phone registered. Please set email to receive OTP.' };
+  }
+
+  async setEmailAndSendOtp(phone: string, email: string) {
+    if (!phone || !email) {
+      throw new BadRequestException('Phone and email are required');
+    }
+
+    const user = await this.userService.findUserByPhone(phone);
+    if (!user) throw new BadRequestException('User not found');
+
+    if (user.isVerified) {
+      throw new BadRequestException('User is already verified');
+    }
+
+    const otp = generateOtp();
+    user.email = email;
+    user.otp = otp;
+
+    await this.userRepository.save(user);
+    await this.mailService.sendOtp(email, otp);
+
+    return { message: 'OTP sent to email' };
   }
 }

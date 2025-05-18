@@ -14,6 +14,11 @@ export class UserService {
       where: { email },
     });
   }
+  async findUserByPhone(phone: string) {
+    return await this.userRepository.findOne({
+      where: { phone },
+    });
+  }
 
   async updateUser(id: number, userDto: UserDto) {
     const userExisted = await this.userRepository.findOne({ where: { id } });
@@ -28,7 +33,5 @@ export class UserService {
     return userExisted;
   }
 
-  async userInfor() {
-
-  }
+  async userInfor() {}
 }

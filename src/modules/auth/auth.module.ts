@@ -7,7 +7,7 @@ import { AuthService } from './service/auth.service';
 import { UserService } from '../user/service/user.service';
 import { MailModule } from '../mail/mail.module';
 import { MailService } from '../mail/service/mail.service';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
 import * as process from 'process';
 import { JwtStrategy } from './strategy/jwt.strategy';
 import { LocalStrategy } from './strategy/local.strategy';
