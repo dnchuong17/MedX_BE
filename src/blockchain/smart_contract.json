@@ -1,0 +1,482 @@
+{
+  "address": "DiCg1rTEDj1pqkC9d6CDfSZKfTYRn9GhZmYYE1bjo6Tj",
+  "metadata": {
+    "name": "smart_contract",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "complete_challenge",
+      "docs": [
+        "Complete a challenge and mint reward"
+      ],
+      "discriminator": [
+        91,
+        147,
+        166,
+        187,
+        72,
+        3,
+        55,
+        209
+      ],
+      "accounts": [
+        {
+          "name": "challenge_state",
+          "writable": true
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "vault_authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_token_account",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "signer": true,
+          "relations": [
+            "challenge_state"
+          ]
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "challenge_id",
+          "type": "u64"
+        },
+        {
+          "name": "reward",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "grant_access",
+      "docs": [
+        "Grant view access"
+      ],
+      "discriminator": [
+        66,
+        88,
+        87,
+        113,
+        39,
+        22,
+        27,
+        165
+      ],
+      "accounts": [
+        {
+          "name": "record",
+          "writable": true
+        },
+        {
+          "name": "access_control",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  99,
+                  99,
+                  101,
+                  115,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "record"
+              },
+              {
+                "kind": "account",
+                "path": "viewer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "record"
+          ]
+        },
+        {
+          "name": "viewer"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "revoke_access",
+      "docs": [
+        "Revoke view access"
+      ],
+      "discriminator": [
+        106,
+        128,
+        38,
+        169,
+        103,
+        238,
+        102,
+        147
+      ],
+      "accounts": [
+        {
+          "name": "access_control",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  99,
+                  99,
+                  101,
+                  115,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "record"
+              },
+              {
+                "kind": "account",
+                "path": "viewer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "record"
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "viewer"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "share_anonymized",
+      "docs": [
+        "Share anonymized record for research and earn reward"
+      ],
+      "discriminator": [
+        73,
+        98,
+        39,
+        215,
+        166,
+        9,
+        176,
+        52
+      ],
+      "accounts": [
+        {
+          "name": "share_event",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  97,
+                  114,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              },
+              {
+                "kind": "arg",
+                "path": "metadata_hash"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "vault_authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_token_account",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "metadata_hash",
+          "type": "string"
+        },
+        {
+          "name": "reward",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "upload_record",
+      "docs": [
+        "Upload a new medical record"
+      ],
+      "discriminator": [
+        7,
+        87,
+        71,
+        120,
+        151,
+        111,
+        161,
+        144
+      ],
+      "accounts": [
+        {
+          "name": "record",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "arg",
+                "path": "record_id"
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "record_id",
+          "type": "string"
+        },
+        {
+          "name": "metadata_hash",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "AccessControl",
+      "discriminator": [
+        147,
+        81,
+        178,
+        92,
+        223,
+        66,
+        181,
+        132
+      ]
+    },
+    {
+      "name": "ChallengeState",
+      "discriminator": [
+        116,
+        197,
+        60,
+        243,
+        110,
+        110,
+        188,
+        85
+      ]
+    },
+    {
+      "name": "MedicalRecord",
+      "discriminator": [
+        30,
+        152,
+        224,
+        245,
+        112,
+        161,
+        115,
+        55
+      ]
+    },
+    {
+      "name": "ShareEvent",
+      "discriminator": [
+        190,
+        179,
+        193,
+        2,
+        98,
+        37,
+        51,
+        32
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "AlreadyCompleted",
+      "msg": "Challenge already completed"
+    }
+  ],
+  "types": [
+    {
+      "name": "AccessControl",
+      "type": {
+        "kind": "struct",
+        "fields": []
+      }
+    },
+    {
+      "name": "ChallengeState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "completed",
+            "type": {
+              "vec": "u64"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "MedicalRecord",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "record_id",
+            "type": "string"
+          },
+          {
+            "name": "metadata_hash",
+            "type": "string"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ShareEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "metadata_hash",
+            "type": "string"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    }
+  ]
+}

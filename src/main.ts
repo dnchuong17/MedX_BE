@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import helmet from 'helmet';
-import * as cookieParser from 'cookie-parser';
-import * as compression from 'compression';
+import cookieParser from 'cookie-parser';
+import compression from 'compression';
 import * as process from 'process';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as nacl from 'tweetnacl';
@@ -11,7 +11,10 @@ import { Keypair } from '@solana/web3.js';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  const keypair = Keypair.generate();
+  const keypair = Keypair.fromSecretKey(
+    new Uint8Array(JSON.parse(process.env.SOLANA_WALLET_SECRET_KEY!))
+  );
+  console.log('✅ Backend wallet:', keypair.publicKey.toBase58());
 
   const message = 'Login to MedX at 2025-05-18T15:00:00Z';
   const messageBytes = new TextEncoder().encode(message);

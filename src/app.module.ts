@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { dataSourceOptions } from './config/data-source-option';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { BlockchainModule } from './blockchain/blockchain.module';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -16,6 +17,7 @@ dotenv.config();
     TypeOrmModule.forRoot(dataSourceOptions),
     UserModule,
     AuthModule,
+    BlockchainModule,
   ],
   controllers: [],
   providers: [],
