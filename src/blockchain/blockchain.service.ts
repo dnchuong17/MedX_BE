@@ -28,10 +28,6 @@ export class BlockchainService {
     });
 
     this.program = new anchor.Program(idl, this.provider);
-    console.log(
-      'IDL upload_record:',
-      this.program.idl.instructions.find((i) => i.name === 'upload_record'),
-    );
   }
 
   async grantAccess(
