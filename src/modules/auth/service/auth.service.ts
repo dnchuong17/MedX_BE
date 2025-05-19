@@ -141,7 +141,9 @@ export class AuthService {
 
     const payload = {
       sub: {
-        wallet: user.wallet_address,
+        id: user.id,
+        name: user.name,
+        phone: user.phone,
       },
     };
 
