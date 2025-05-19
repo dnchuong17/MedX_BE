@@ -1,22 +1,23 @@
 {
 	"info": {
-		"_postman_id": "a3156daa-5f85-4f45-9455-1ce14fbf1488",
+		"_postman_id": "b440c671-5e97-4a08-8fb1-97074731f6c7",
 		"name": "MedX",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37386912"
+		"_exporter_id": "37751783",
+		"_collection_link": "https://bigteam-7748.postman.co/workspace/MedX~96002cfa-a4b9-445a-b5d0-deb89e820f19/collection/37751783-b440c671-5e97-4a08-8fb1-97074731f6c7?action=share&source=collection_link&creator=37751783"
 	},
 	"item": [
 		{
-			"name": "Auth",
+			"name": "share records",
 			"item": [
 				{
-					"name": "Register",
+					"name": "grant record access",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"chuongdo172@gmail.com\",\n    \"password\": \"17122004Chuong\",\n    \"name\": \"Do Chuong\"\n}",
+							"raw": "{\r\n  \"record\": \"4sVN3yuNc3pTtfjtpRDZ7FCjpWQ7kepRdekEUs6t7y1f\",\r\n  \"viewer\": \"3rEvwhL8VkAUcCG5SPQ6dDoidFHBk1tACyyEmn1zmdgL\",\r\n  \"owner\": \"oy4mwud9sgxaykyL2nVXM848851J6aC9YjZkiF6qkHa\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -24,28 +25,28 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/auth/register",
+							"raw": "http://localhost:3000/blockchain/grant-access",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"auth",
-								"register"
+								"blockchain",
+								"grant-access"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Verify OTP",
+					"name": "revoke record access",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"chuongdo172@gmail.com\",\n    \"otp\": \"111015\"\n}",
+							"raw": "{\r\n  \"record\": \"4sVN3yuNc3pTtfjtpRDZ7FCjpWQ7kepRdekEUs6t7y1f\",\r\n  \"viewer\": \"3rEvwhL8VkAUcCG5SPQ6dDoidFHBk1tACyyEmn1zmdgL\",\r\n  \"owner\": \"oy4mwud9sgxaykyL2nVXM848851J6aC9YjZkiF6qkHa\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -53,28 +54,28 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/auth/email-verify",
+							"raw": "http://localhost:3000/blockchain/revoke-access",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"auth",
-								"email-verify"
+								"blockchain",
+								"revoke-access"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Login",
+					"name": "upload record",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"chuongdo172@gmail.com\",\n    \"password\": \"17122004Chuong\"\n}",
+							"raw": "{\r\n  \"user\": \"oy4mwud9sgxaykyL2nVXM848851J6aC9YjZkiF6qkHa\",\r\n  \"recordId\": \"record-abc-1234567\",\r\n  \"metadataHash\": \"hash-xyz-987\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -82,73 +83,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/auth/login",
+							"raw": "http://localhost:3000/blockchain/upload-record",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Login via Wallet",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"wallet_address\": \"BSUDZTXQMDUyYdEAXjsEWM4T4Rmd1M55KysX7P8RY6rc\",\n  \"message\": \"Login to MedX at 2025-05-18T15:00:00Z\",\n  \"signature\": \"4cQ36LHy5DhYzhutE3eCKd3xqDPHfpZ5qdDyeGg3iQzKCPAYeC8JHR9REAEtry8wA2b1xobT1iQ566FPkxYKR5uv\"\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/auth/login-wallet",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"auth",
-								"login-wallet"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Register via phone",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"wallet_address\": \"BSUDZTXQMDUyYdEAXjsEWM4T4Rmd1M55KysX7P8RY6rc\",\n  \"message\": \"Login to MedX at 2025-05-18T15:00:00Z\",\n  \"signature\": \"4cQ36LHy5DhYzhutE3eCKd3xqDPHfpZ5qdDyeGg3iQzKCPAYeC8JHR9REAEtry8wA2b1xobT1iQ566FPkxYKR5uv\"\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/auth/login-wallet",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"auth",
-								"login-wallet"
+								"blockchain",
+								"upload-record"
 							]
 						}
 					},
@@ -157,134 +100,91 @@
 			]
 		},
 		{
-			"name": "User",
-			"item": [
-				{
-					"name": "Update user",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsid2FsbGV0IjoiQlNVRFpUWFFNRFV5WWRFQVhqc0VXTTRUNFJtZDFNNTVLeXNYN1A4Ulk2cmMifSwiaWF0IjoxNzQ3NTEzOTc3LCJleHAiOjE3NDc1MTQzMzd9.Fn9JNXlvxS9ED12YgecjUCdsPBFgazziSxgUSxNqXAc",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNodW9uZ2RvMTcyQGdtYWlsLmNvbSIsInN1YiI6eyJuYW1lIjoiRG8gQ2h1b25nIn0sImlhdCI6MTc0NzUxMDIzMCwiZXhwIjoxNzQ3NTEwNTkwfQ.M87b70bOkzY_3s7LlPk8ZR3ec_S9mrjKSktcntvsvUU",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Chuong Do\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/user/6",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								"6"
-							]
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"chuongdo172@gmail.com\",\n    \"password\": \"17122004Chuong\",\n    \"name\": \"Do Chuong\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					},
-					"response": []
+					}
 				},
-				{
-					"name": "Get me",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjgsIm5hbWUiOiJDaHVvbmcgRG8iLCJlbWFpbCI6ImNodW9uZ2RvMTcyQGdtYWlsLmNvbSJ9LCJpYXQiOjE3NDc1ODAwOTYsImV4cCI6MTc0NzU4MDQ1Nn0.QKE2MRdBHfs-yVvmb7NIBW5F_fgqUIn2m1wItmFCePg",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://localhost:3000/user/me",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								"me"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get User via Email",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjgsIm5hbWUiOiJDaHVvbmcgRG8gMTIzIiwiZW1haWwiOiJjaHVvbmdkbzE3MkBnbWFpbC5jb20ifSwiaWF0IjoxNzQ3NjQ3NTAyLCJleHAiOjE3NDc2NDc4NjJ9.g0VnjLfge_Tu6I73LbgTfLSGzQeDJiK0Yu8tHQvK4Ng",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://localhost:3000/user?email=chuongdo172@gmail.com",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user"
-							],
-							"query": [
-								{
-									"key": "email",
-									"value": "chuongdo172@gmail.com"
-								}
-							]
-						}
-					},
-					"response": []
+				"url": {
+					"raw": "http://localhost:3000/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"register"
+					]
 				}
-			]
+			},
+			"response": []
+		},
+		{
+			"name": "Verify OTP",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"chuongdo172@gmail.com\",\n    \"otp\": \"171204\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/email-verify",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"email-verify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"chuongdo172@gmail.com\",\n    \"password\": \"17122004Chuong\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
