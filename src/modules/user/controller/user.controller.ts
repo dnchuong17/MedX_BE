@@ -37,7 +37,7 @@ export class UserController {
   @Get()
   async getUserByEmail(@Query('email') email: string) {
     try {
-      return this.userService.findUserByEmail(email);
+      return this.userService.UserInfoByEmail(email);
     } catch (error) {
       throw new Error(error);
     }

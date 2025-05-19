@@ -14,6 +14,7 @@ export class UserService {
       where: { email },
     });
   }
+
   async findUserByPhone(phone: string) {
     return await this.userRepository.findOne({
       where: { phone },
@@ -31,5 +32,16 @@ export class UserService {
 
     await this.userRepository.save(userExisted);
     return userExisted;
+  }
+
+  async UserInfoByEmail(email: string) {
+    const user =  await this.userRepository.findOne({
+      where: { email },
+    });
+    if (user) {
+      delete user.password;
+    }
+
+    return user;
   }
 }
