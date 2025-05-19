@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "a3156daa-5f85-4f45-9455-1ce14fbf1488",
+		"_postman_id": "dfc4b6a9-f3d0-4114-9692-49faa1728d76",
 		"name": "MedX",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37386912"
+		"_exporter_id": "37751783",
+		"_collection_link": "https://bigteam-7748.postman.co/workspace/MedX~96002cfa-a4b9-445a-b5d0-deb89e820f19/collection/37751783-dfc4b6a9-f3d0-4114-9692-49faa1728d76?action=share&source=collection_link&creator=37751783"
 	},
 	"item": [
 		{
@@ -279,6 +280,98 @@
 									"key": "email",
 									"value": "chuongdo172@gmail.com"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "share records",
+			"item": [
+				{
+					"name": "grant record access",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"record\": \"4sVN3yuNc3pTtfjtpRDZ7FCjpWQ7kepRdekEUs6t7y1f\",\r\n  \"viewer\": \"3rEvwhL8VkAUcCG5SPQ6dDoidFHBk1tACyyEmn1zmdgL\",\r\n  \"owner\": \"oy4mwud9sgxaykyL2nVXM848851J6aC9YjZkiF6qkHa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/blockchain/grant-access",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"blockchain",
+								"grant-access"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "revoke record access",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"record\": \"4sVN3yuNc3pTtfjtpRDZ7FCjpWQ7kepRdekEUs6t7y1f\",\r\n  \"viewer\": \"3rEvwhL8VkAUcCG5SPQ6dDoidFHBk1tACyyEmn1zmdgL\",\r\n  \"owner\": \"oy4mwud9sgxaykyL2nVXM848851J6aC9YjZkiF6qkHa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/blockchain/revoke-access",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"blockchain",
+								"revoke-access"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upload record",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user\": \"oy4mwud9sgxaykyL2nVXM848851J6aC9YjZkiF6qkHa\",\r\n  \"recordId\": \"record-abc-1234567\",\r\n  \"metadataHash\": \"hash-xyz-987\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/blockchain/upload-record",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"blockchain",
+								"upload-record"
 							]
 						}
 					},
