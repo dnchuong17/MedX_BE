@@ -32,6 +32,4 @@ export class UserService {
     await this.userRepository.save(userExisted);
     return userExisted;
   }
-
-  async userInfor() {}
 }

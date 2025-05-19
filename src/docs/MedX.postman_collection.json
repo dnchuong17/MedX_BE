@@ -124,6 +124,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Register via phone",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"wallet_address\": \"BSUDZTXQMDUyYdEAXjsEWM4T4Rmd1M55KysX7P8RY6rc\",\n  \"message\": \"Login to MedX at 2025-05-18T15:00:00Z\",\n  \"signature\": \"4cQ36LHy5DhYzhutE3eCKd3xqDPHfpZ5qdDyeGg3iQzKCPAYeC8JHR9REAEtry8wA2b1xobT1iQ566FPkxYKR5uv\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/login-wallet",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login-wallet"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -196,7 +225,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"chuongdo172@gmail.com\",\n    \"password\": \"17122004Chuong\"\n}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://localhost:3000/user/me",
@@ -208,6 +237,48 @@
 							"path": [
 								"user",
 								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User via Email",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjgsIm5hbWUiOiJDaHVvbmcgRG8gMTIzIiwiZW1haWwiOiJjaHVvbmdkbzE3MkBnbWFpbC5jb20ifSwiaWF0IjoxNzQ3NjQ3NTAyLCJleHAiOjE3NDc2NDc4NjJ9.g0VnjLfge_Tu6I73LbgTfLSGzQeDJiK0Yu8tHQvK4Ng",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/user?email=chuongdo172@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "chuongdo172@gmail.com"
+								}
 							]
 						}
 					},
