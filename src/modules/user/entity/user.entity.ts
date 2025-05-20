@@ -1,4 +1,11 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToMany,
+} from 'typeorm';
+import { RecordEntity } from '../../record/entity/record.entity';
 
 @Entity('users')
 export class UserEntity extends BaseEntity {
@@ -32,8 +39,8 @@ export class UserEntity extends BaseEntity {
   @Column({ unique: true, nullable: true })
   wallet_address?: string;
 
-  @Column({ nullable: true })
-  encrypted_key?: string;
+  @OneToMany(() => RecordEntity, (record) => record.user)
+  records: RecordEntity[];
 
   @Column()
   isVerified: boolean;
