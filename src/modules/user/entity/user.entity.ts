@@ -47,4 +47,10 @@ export class UserEntity extends BaseEntity {
 
   @Column({ nullable: true })
   otp: string;
+
+  @Column({ nullable: true })
+  insurance_id: string;
+
+  @Column({ default: false, nullable: true })
+  isSync: boolean;
 }
