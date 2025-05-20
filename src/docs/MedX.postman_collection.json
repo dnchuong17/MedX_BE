@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "dfc4b6a9-f3d0-4114-9692-49faa1728d76",
+		"_postman_id": "21d6d467-a995-496c-b7a0-b2ddd8e99e57",
 		"name": "MedX",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37751783",
-		"_collection_link": "https://bigteam-7748.postman.co/workspace/MedX~96002cfa-a4b9-445a-b5d0-deb89e820f19/collection/37751783-dfc4b6a9-f3d0-4114-9692-49faa1728d76?action=share&source=collection_link&creator=37751783"
+		"_exporter_id": "37386912"
 	},
 	"item": [
 		{
@@ -372,6 +371,43 @@
 							"path": [
 								"blockchain",
 								"upload-record"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sync",
+			"item": [
+				{
+					"name": "Sync records",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/sync?ids=ITITIU00001, ITITIU00002, ITITIU00003",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"sync"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "ITITIU00001, ITITIU00002, ITITIU00003"
+								}
 							]
 						}
 					},
