@@ -33,4 +33,16 @@ export class RecordEntity {
 
   @Column({ name: 'version_of', type: 'uuid', nullable: true })
   versionOf?: string;
+
+  @Column({ name: 'doctor', type: 'varchar', length: 255 })
+  doctor: string;
+
+  @Column({ name: 'category', type: 'varchar', length: 100 })
+  category: string;
+
+  @Column({ name: 'facility', type: 'varchar', length: 255 })
+  facility: string;
+
+  @Column({ name: 'notes', type: 'text', nullable: true })
+  notes?: string;
 }
