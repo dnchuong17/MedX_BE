@@ -1,6 +1,6 @@
 import {
   Body,
-  Controller,
+  Controller, Param,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -8,6 +8,7 @@ import {
 import { RecordService } from '../service/record.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadFileDto } from '../dto/upload-file.dto';
+import { ConfirmRecordDto } from '../dto/confirm.dto';
 
 @Controller('record')
 export class RecordController {
@@ -20,5 +21,13 @@ export class RecordController {
     @Body() uploadFileDto: UploadFileDto,
   ) {
     return await this.recordService.uploadFile(file, uploadFileDto);
+  }
+
+  @Post('confirm-transaction/:id')
+  async confirmTransaction(
+    @Param('id') recordId: string,
+    @Body() dto: ConfirmRecordDto,
+  ) {
+    return this.recordService.confirmTransaction(recordId, dto.txid);
   }
 }

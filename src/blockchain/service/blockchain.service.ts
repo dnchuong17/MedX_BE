@@ -4,6 +4,7 @@ import { Connection, Keypair, PublicKey, Transaction } from '@solana/web3.js';
 import * as process from 'node:process';
 import { AnchorProvider, Wallet } from '@coral-xyz/anchor';
 import * as idl from '../utils/smart_contract.json';
+import { createHash } from 'crypto';
 
 @Injectable()
 export class BlockchainService {
@@ -95,8 +96,10 @@ export class BlockchainService {
     metadataHash: string,
     user: PublicKey,
   ): Promise<string> {
+    const recordSeed = createHash('sha256').update(recordId).digest(); // đảm bảo seed chỉ 32 bytes
+
     const recordPDA = PublicKey.findProgramAddressSync(
-      [Buffer.from(recordId), user.toBuffer()],
+      [recordSeed, user.toBuffer()],
       this.program.programId,
     )[0];
 
