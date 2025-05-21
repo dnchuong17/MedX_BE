@@ -9,6 +9,12 @@ export class UserService {
   @InjectRepository(UserEntity)
   private readonly userRepository: Repository<UserEntity>;
 
+  async findUserById(id: number) {
+    return await this.userRepository.findOne({
+      where: { id: id },
+    });
+  }
+
   async findUserByEmail(email: string) {
     return await this.userRepository.findOne({
       where: { email },
@@ -35,7 +41,7 @@ export class UserService {
   }
 
   async UserInfoByEmail(email: string) {
-    const user =  await this.userRepository.findOne({
+    const user = await this.userRepository.findOne({
       where: { email },
     });
     if (user) {

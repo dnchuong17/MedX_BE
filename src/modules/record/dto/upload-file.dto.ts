@@ -1,7 +1,4 @@
-import {
-  IsNotEmpty,
-  IsOptional,
-} from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export class UploadFileDto {
   @IsNotEmpty()
@@ -21,4 +18,7 @@ export class UploadFileDto {
 
   @IsOptional()
   notes?: string;
+
+  @IsNotEmpty()
+  userId: number;
 }
