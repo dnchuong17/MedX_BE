@@ -3,7 +3,7 @@ import * as anchor from '@coral-xyz/anchor';
 import { Connection, Keypair, PublicKey, Transaction } from '@solana/web3.js';
 import * as process from 'node:process';
 import { AnchorProvider, Wallet } from '@coral-xyz/anchor';
-import * as idl from './smart_contract.json';
+import * as idl from '../utils/smart_contract.json';
 
 @Injectable()
 export class BlockchainService {
