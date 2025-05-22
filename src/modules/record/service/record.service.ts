@@ -113,4 +113,26 @@ export class RecordService {
       message: 'Confirm transaction successfully!',
     };
   }
+
+  async findAllByUserId(userId: number) {
+    // Find user
+    const existedUser = await this.userService.findUserById(userId);
+    if (!existedUser) {
+      throw new RuntimeException('User not found');
+    }
+
+    return await this.recordRepository
+      .createQueryBuilder('record')
+      .leftJoin('record.user', 'user')
+      .where('user.id = :userId', { userId })
+      .select([
+        'record.url',
+        'record.doctor',
+        'record.date',
+        'record.facility',
+        'record.category',
+        'record.notes',
+      ])
+      .getMany();
+  }
 }

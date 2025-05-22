@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  Index,
 } from 'typeorm';
 import { UserEntity } from '../../user/entity/user.entity';
 
@@ -12,8 +13,12 @@ export class RecordEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => UserEntity, (user) => user.records, { onDelete: 'CASCADE' })
+  @ManyToOne(() => UserEntity, (user) => user.records, {
+    onDelete: 'CASCADE',
+    eager: false,
+  })
   @JoinColumn({ name: 'user_id' })
+  @Index()
   user: UserEntity;
 
   @Column({ name: 'url', type: 'text' })
@@ -45,6 +50,9 @@ export class RecordEntity {
 
   @Column({ name: 'facility', type: 'varchar', length: 255 })
   facility: string;
+
+  @Column({ type: 'date' })
+  date: string;
 
   @Column({ name: 'notes', type: 'text', nullable: true })
   notes?: string;

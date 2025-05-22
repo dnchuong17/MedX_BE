@@ -1,10 +1,10 @@
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { IsDateString, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class UploadFileDto {
   @IsNotEmpty()
   publicKey: string;
 
-  @IsNotEmpty()
+  @IsDateString()
   date: string;
 
   @IsNotEmpty()

@@ -1,6 +1,8 @@
 import {
   Body,
-  Controller, Param,
+  Controller,
+  Get,
+  Param,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -29,5 +31,10 @@ export class RecordController {
     @Body() dto: ConfirmRecordDto,
   ) {
     return this.recordService.confirmTransaction(recordId, dto.txid);
+  }
+
+  @Get(':userId')
+  async findAllByUserId(@Param('userId') userId: number) {
+    return this.recordService.findAllByUserId(userId);
   }
 }
