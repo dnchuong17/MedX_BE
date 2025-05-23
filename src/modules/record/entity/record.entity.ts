@@ -51,7 +51,7 @@ export class RecordEntity {
   @Column({ name: 'facility', type: 'varchar', length: 255 })
   facility: string;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'date', nullable: true })
   date: string;
 
   @Column({ name: 'notes', type: 'text', nullable: true })
