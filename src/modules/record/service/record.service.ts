@@ -22,9 +22,12 @@ export class RecordService {
     private readonly userService: UserService,
     private readonly blockchainService: BlockchainService,
   ) {}
-  async uploadFile(file: Express.Multer.File, uploadFileDto: UploadFileDto) {
+  async uploadFile(
+    file: Express.Multer.File,
+    uploadFileDto: UploadFileDto,
+    versionOf?: string,
+  ) {
     try {
-      // Find user
       const existedUser = await this.userService.findUserById(
         uploadFileDto.userId,
       );
@@ -37,20 +40,7 @@ export class RecordService {
         uploadFileDto.encryption_key,
       );
 
-      console.log(uploadFileDto);
-
-      //Upload file to IPFS
-      const client = await w3up.create();
-      const email = process.env.EMAIL;
-      const spaceDid = process.env.SPACE_DID;
-
-      await client.login(email as `${string}@${string}`);
-      await client.setCurrentSpace(spaceDid as `did:${string}:${string}`);
-
-      const encryptedBlob = new Blob([file.buffer], {
-        type: 'application/octet-stream',
-      });
-      const cid = await client.uploadFile(encryptedBlob);
+      const cid = await this.uploadIPFS(file.buffer);
       const url = `${process.env.IPFS_PREFIX}${cid.toString()}`;
 
       const newRecord = this.recordRepository.create({
@@ -63,6 +53,7 @@ export class RecordService {
         doctor: uploadFileDto.doctor,
         category: uploadFileDto.category,
         facility: uploadFileDto.facility,
+        versionOf: versionOf,
         notes: uploadFileDto.notes ?? undefined,
       });
 
@@ -98,6 +89,30 @@ export class RecordService {
     }
   }
 
+  async updateRecord(
+    recordId: string,
+    file: Express.Multer.File,
+    uploadFileDto: UploadFileDto,
+  ) {
+    const existedUser = await this.userService.findUserById(
+      uploadFileDto.userId,
+    );
+
+    if (!existedUser) {
+      throw new RuntimeException('User not found');
+    }
+
+    const existedRecord = await this.recordRepository.findOne({
+      where: { id: recordId },
+    });
+
+    if (!existedRecord) {
+      throw new NotFoundException(`Record with id ${recordId} not found`);
+    }
+
+    return this.uploadFile(file, uploadFileDto, recordId);
+  }
+
   async confirmTransaction(recordId: string, txid: string) {
     const record = await this.recordRepository.findOne({
       where: { id: recordId },
@@ -131,8 +146,37 @@ export class RecordService {
         'record.date',
         'record.facility',
         'record.category',
+        'record.versionOf',
         'record.notes',
       ])
+      .orderBy('record.date', 'DESC')
       .getMany();
+  }
+
+  async uploadIPFS(buffer: Buffer): Promise<string> {
+    try {
+      const client = await w3up.create();
+      const email = process.env.EMAIL;
+      const spaceDid = process.env.SPACE_DID;
+
+      if (!email || !spaceDid) {
+        throw new InternalServerErrorException(
+          'Missing EMAIL or SPACE_DID environment variables.',
+        );
+      }
+
+      await client.login(email as `${string}@${string}`);
+      await client.setCurrentSpace(spaceDid as `did:${string}:${string}`);
+
+      const encryptedBlob = new Blob([buffer], {
+        type: 'application/octet-stream',
+      });
+
+      const cid = await client.uploadFile(encryptedBlob);
+      return cid.toString();
+    } catch (err) {
+      console.error('[IPFS Upload Error]', err);
+      throw new InternalServerErrorException('Upload to IPFS failed.');
+    }
   }
 }
