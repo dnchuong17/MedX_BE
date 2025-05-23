@@ -34,13 +34,13 @@ export class RecordEntity {
   @Column({ name: 'version_of', type: 'uuid', nullable: true })
   versionOf?: string;
 
-  @Column({ name: 'doctor', type: 'varchar', length: 255 })
+  @Column({ name: 'doctor', type: 'varchar', length: 255, nullable: true })
   doctor: string;
 
-  @Column({ name: 'category', type: 'varchar', length: 100 })
+  @Column({ name: 'category', type: 'varchar', length: 100, nullable: true })
   category: string;
 
-  @Column({ name: 'facility', type: 'varchar', length: 255 })
+  @Column({ name: 'facility', type: 'varchar', length: 255, nullable: true })
   facility: string;
 
   @Column({ name: 'notes', type: 'text', nullable: true })

@@ -35,8 +35,30 @@ export class UserService {
   }
 
   async UserInfoByEmail(email: string) {
-    const user =  await this.userRepository.findOne({
+    const user = await this.userRepository.findOne({
       where: { email },
+    });
+    if (user) {
+      delete user.password;
+    }
+
+    return user;
+  }
+
+  async UserInfoByPhone(phone: string) {
+    const user = await this.userRepository.findOne({
+      where: { phone },
+    });
+    if (user) {
+      delete user.password;
+    }
+
+    return user;
+  }
+
+  async UserInfoByWallet(wallet_address: string) {
+    const user = await this.userRepository.findOne({
+      where: { wallet_address },
     });
     if (user) {
       delete user.password;

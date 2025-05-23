@@ -34,10 +34,30 @@ export class UserController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get()
+  @Get('/email')
   async getUserByEmail(@Query('email') email: string) {
     try {
       return this.userService.UserInfoByEmail(email);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('/phone')
+  async getUserByPhone(@Query('phone') phone: string) {
+    try {
+      return this.userService.UserInfoByPhone(phone);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('/wallet')
+  async getUserByWallet(@Query('wallet_address') wallet_address: string) {
+    try {
+      return this.userService.UserInfoByWallet(wallet_address);
     } catch (error) {
       throw new Error(error);
     }
