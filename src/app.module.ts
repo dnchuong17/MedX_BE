@@ -8,6 +8,8 @@ import { BlockchainModule } from './blockchain/blockchain.module';
 import * as dotenv from 'dotenv';
 import { RecordModule } from './modules/record/record.module';
 import { SyncModule } from './modules/sync/sync.module';
+import process from 'node:process';
+import { MessageBrokerModule } from 'common_be';
 
 dotenv.config();
 
@@ -22,6 +24,16 @@ dotenv.config();
     BlockchainModule,
     RecordModule,
     SyncModule,
+    MessageBrokerModule.register({
+      redisOptions: {
+        host: process.env.REDIS_HOST ?? '',
+        port: Number(process.env.REDIS_PORT),
+        accessKey: process.env.REDIS_PASSWORD ?? '',
+      },
+      queueName: process.env.QUEUE_LOCAL_NAME ?? '',
+      defaultTimeout: 30000,
+      isPublic: true,
+    }),
   ],
   controllers: [],
   providers: [],
