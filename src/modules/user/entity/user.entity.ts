@@ -39,6 +39,9 @@ export class UserEntity extends BaseEntity {
   @Column({ unique: true, nullable: true })
   wallet_address?: string;
 
+  @Column({ name: 'encryption_key', type: 'varchar', nullable: true })
+  encryptionKey: string;
+
   @OneToMany(() => RecordEntity, (record) => record.user)
   records: RecordEntity[];
 

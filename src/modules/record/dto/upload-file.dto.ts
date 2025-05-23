@@ -5,7 +5,7 @@ export class UploadFileDto {
   publicKey: string;
 
   @IsNotEmpty()
-  encrypted_key: string;
+  encryption_key: string;
 
   @IsDateString()
   date: string;
