@@ -32,6 +32,10 @@ export class RecordService {
       if (!existedUser) {
         throw new RuntimeException('User not found');
       }
+      await this.userService.updateUserEncryptionKey(
+        existedUser.id,
+        uploadFileDto.encryption_key,
+      );
 
       console.log(uploadFileDto);
 

@@ -72,4 +72,14 @@ export class UserService {
 
     return user;
   }
+
+  async updateUserEncryptionKey(userId: number, encryptionKey: string) {
+    const user = await this.findUserById(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    user.encryptionKey = encryptionKey;
+    await this.userRepository.save(user);
+  }
 }
