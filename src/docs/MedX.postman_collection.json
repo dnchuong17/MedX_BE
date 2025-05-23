@@ -283,6 +283,92 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get User via Phone",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjgsIm5hbWUiOiJDaHVvbmcgRG8gMTIzIiwicGhvbmUiOiIwODUyNzg4NjU3In0sImlhdCI6MTc0Nzk4NTY0MSwiZXhwIjoxNzQ3OTg2MDAxfQ.Mntjg2XZ5FgMfxJlyjirAAUb3nRXHIaCT4-JDvWduPM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/phone?phone=0852788657",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"phone"
+							],
+							"query": [
+								{
+									"key": "phone",
+									"value": "0852788657"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User via Wallet",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjgsIm5hbWUiOiJDaHVvbmcgRG8gMTIzIiwicGhvbmUiOiIwODUyNzg4NjU3In0sImlhdCI6MTc0Nzk4NTY0MSwiZXhwIjoxNzQ3OTg2MDAxfQ.Mntjg2XZ5FgMfxJlyjirAAUb3nRXHIaCT4-JDvWduPM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/wallet?wallet_address=xxxAttentionxxx1712",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"wallet"
+							],
+							"query": [
+								{
+									"key": "wallet_address",
+									"value": "xxxAttentionxxx1712"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
