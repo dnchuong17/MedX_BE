@@ -12,7 +12,10 @@ export class BlockchainService {
   private program: anchor.Program;
 
   constructor() {
-    const connection = new Connection('https://api.devnet.solana.com');
+    const connection = new Connection(
+      'https://api.devnet.solana.com',
+      'confirmed',
+    );
 
     const secretKey = process.env.SOLANA_WALLET_SECRET_KEY;
     if (!secretKey) {

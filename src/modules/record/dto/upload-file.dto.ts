@@ -1,9 +1,8 @@
 import { IsDateString, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class UploadFileDto {
-
   @IsNotEmpty()
-  publickey: string;
+  publicKey: string;
 
   @IsNotEmpty()
   encrypted_key: string;

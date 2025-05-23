@@ -24,7 +24,7 @@ export class RecordEntity {
   @Column({ name: 'url', type: 'text' })
   url: string;
 
-  @Column({ name: 'encrypted_data', type: 'bytea' })
+  @Column({ name: 'encrypted_data', type: 'bytea', nullable: true })
   encryptedData: Buffer;
 
   @Column({ name: 'file_name', type: 'varchar', length: 255 })

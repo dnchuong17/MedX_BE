@@ -5,8 +5,6 @@ import {
 } from '@nestjs/common';
 import * as w3up from '@web3-storage/w3up-client';
 import { UploadFileDto } from '../dto/upload-file.dto';
-import bs58 from 'bs58';
-import sodium from 'libsodium-wrappers';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { RecordEntity } from '../entity/record.entity';
@@ -35,11 +33,9 @@ export class RecordService {
         throw new RuntimeException('User not found');
       }
 
-      await sodium.ready;
-      // Encrypt file by the public key
-      const publicKey = bs58.decode(uploadFileDto.publicKey);
-      const encrypted = sodium.crypto_box_seal(file.buffer, publicKey);
-      // Upload file to IPFS
+      console.log(uploadFileDto);
+
+      //Upload file to IPFS
       const client = await w3up.create();
       const email = process.env.EMAIL;
       const spaceDid = process.env.SPACE_DID;
@@ -47,7 +43,7 @@ export class RecordService {
       await client.login(email as `${string}@${string}`);
       await client.setCurrentSpace(spaceDid as `did:${string}:${string}`);
 
-      const encryptedBlob = new Blob([encrypted], {
+      const encryptedBlob = new Blob([file.buffer], {
         type: 'application/octet-stream',
       });
       const cid = await client.uploadFile(encryptedBlob);
@@ -56,7 +52,7 @@ export class RecordService {
       const newRecord = this.recordRepository.create({
         user: existedUser,
         url: url,
-        encryptedData: encrypted,
+        encryptedData: file.buffer,
         fileName: file.originalname,
         fileType: file.mimetype,
         fileSize: file.size,
@@ -69,7 +65,7 @@ export class RecordService {
       await this.recordRepository.save(newRecord);
       const recordId = newRecord.id;
       const metadataHash = createHash('sha256')
-        .update(Buffer.from(encrypted))
+        .update(Buffer.from(file.buffer))
         .digest('hex');
 
       const userPublicKey = new PublicKey(uploadFileDto.publicKey);
