@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -36,5 +37,15 @@ export class RecordController {
   @Get(':userId')
   async findAllByUserId(@Param('userId') userId: number) {
     return this.recordService.findAllByUserId(userId);
+  }
+
+  @Patch(':id')
+  @UseInterceptors(FileInterceptor('file'))
+  async updateRecord(
+    @UploadedFile() file: Express.Multer.File,
+    @Param('id') recordId: string,
+    @Body() uploadFileDto: UploadFileDto,
+  ) {
+    return this.recordService.updateRecord(recordId, file, uploadFileDto);
   }
 }
