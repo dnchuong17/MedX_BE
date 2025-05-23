@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "21d6d467-a995-496c-b7a0-b2ddd8e99e57",
-		"name": "MedX",
+		"_postman_id": "c41a1a05-5c96-4229-a4d1-246171af4dba",
+		"name": "MedX Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37386912"
+		"_exporter_id": "37751783",
+		"_collection_link": "https://bigteam-7748.postman.co/workspace/MedX~96002cfa-a4b9-445a-b5d0-deb89e820f19/collection/37751783-c41a1a05-5c96-4229-a4d1-246171af4dba?action=share&source=collection_link&creator=37751783"
 	},
 	"item": [
 		{
@@ -373,7 +374,7 @@
 			]
 		},
 		{
-			"name": "share records",
+			"name": "Record (onchain)",
 			"item": [
 				{
 					"name": "grant record access",
@@ -457,6 +458,105 @@
 							"path": [
 								"blockchain",
 								"upload-record"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Record (off-chain)",
+			"item": [
+				{
+					"name": "upload record",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "postman-cloud:///1f02902e-fddf-46a0-b442-9188b3d2614d"
+								},
+								{
+									"key": "publicKey",
+									"value": "B6AKfZRSkc6dAcgjTCZf7MeosRbhiB37NYGdDEFxBXpt",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "2025-05-21",
+									"type": "text"
+								},
+								{
+									"key": "doctor",
+									"value": "Dr. Anh Tran",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "General Check-up",
+									"type": "text"
+								},
+								{
+									"key": "facility",
+									"value": "Thong Nhat hospital",
+									"type": "text"
+								},
+								{
+									"key": "notes",
+									"value": "test only",
+									"type": "text"
+								},
+								{
+									"key": "userId",
+									"value": "30",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/record",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"record"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "confirm upload transaction",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"txid\": \"confirmed! (test-only)\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/record/confirm-transaction/b76fea29-e44d-4a31-be36-8e78d14f66eb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"record",
+								"confirm-transaction",
+								"b76fea29-e44d-4a31-be36-8e78d14f66eb"
 							]
 						}
 					},

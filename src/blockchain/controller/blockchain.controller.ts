@@ -1,4 +1,4 @@
-import { BlockchainService } from './blockchain.service';
+import { BlockchainService } from '../service/blockchain.service';
 import { Controller, Post, Body } from '@nestjs/common';
 import { PublicKey } from '@solana/web3.js';
 
