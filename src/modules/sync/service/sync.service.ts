@@ -1,15 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
+import { SyncProxyService } from './sync-proxy.service';
 
 @Injectable()
 export class SyncService {
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly syncProxyService: SyncProxyService,
+  ) {}
 
-  async fetchAllPatients(studentIds: string[]) {
-    if (!studentIds || studentIds.length === 0) return [];
-
-    const csv = studentIds.join(',');
+  async fetchAllPatients() {
+    const studentInfo = await this.syncProxyService.getStudentInfo();
+    if (!studentInfo?.length) {
+      return;
+    }
+    const csv = studentInfo.map((s) => s.studentId).join(',');
     const url = `http://localhost:2024/patient/information?studentIds=${encodeURIComponent(csv)}`;
 
     try {
@@ -37,8 +43,8 @@ export class SyncService {
       return filteredData;
     } catch (error) {
       console.error('Failed to fetch patient data:', error);
-      return studentIds.map((id) => ({
-        student_id: id,
+      return studentInfo.map((s) => ({
+        student_id: s.studentId,
         error: 'Failed to fetch data',
       }));
     }
