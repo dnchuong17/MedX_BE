@@ -56,4 +56,7 @@ export class RecordEntity {
 
   @Column({ name: 'notes', type: 'text', nullable: true })
   notes?: string;
+
+  @Column({ name: 'sync_transaction', type: 'text', nullable: true })
+  syncTransaction?: string;
 }
