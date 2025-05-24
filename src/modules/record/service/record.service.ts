@@ -149,21 +149,29 @@ export class RecordService {
       throw new RuntimeException('User not found');
     }
 
-    return await this.recordRepository
+    const records = await this.recordRepository
       .createQueryBuilder('record')
       .leftJoin('record.user', 'user')
       .where('user.id = :userId', { userId })
       .select([
+        'record.id',
         'record.url',
+        'record.encryptedData',
         'record.doctor',
         'record.date',
         'record.facility',
         'record.category',
         'record.versionOf',
         'record.notes',
+        'record.fileName',
       ])
       .orderBy('record.date', 'DESC')
       .getMany();
+
+    return records.map((record) => ({
+      ...record,
+      encryptedData: record.encryptedData?.toString('base64') || null,
+    }));
   }
 
   async uploadIPFS(buffer: Buffer): Promise<string> {
