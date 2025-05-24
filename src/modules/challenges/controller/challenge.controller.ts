@@ -65,8 +65,6 @@ export class ChallengesController {
     if (!file) throw new BadRequestException('Image file is required');
 
     const userId = req.user.id as number;
-    console.log(userId);
-    console.log(req.user);
 
     const passed = await this.challengesService.checkChallengeImage(
       challengeId,

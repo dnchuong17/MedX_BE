@@ -703,6 +703,119 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Health News",
+			"item": [
+				{
+					"name": "Create News",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"5 Benefits of Drinking Water\",\n  \"content\": \"Drinking water helps maintain body temperature, support digestion, improve skin health, and more.\",\n  \"author\": \"Dr. Jane Doe\",\n  \"publishedAt\": \"2025-06-01T09:00:00.000Z\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/health-news/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"health-news",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit News",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/macbook/Downloads/cup of water.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/health-news/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"health-news",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get News",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/health-news",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"health-news"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/macbook/Downloads/cup of water.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/health-news/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"health-news",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

@@ -23,7 +23,6 @@ export class RewardService {
 
   async rewardUser(userId: number, challengeId: number) {
     const user = await this.userRepository.findOne({ where: { id: userId } });
-    console.log(userId);
     if (!user || !user.wallet_address) throw new Error('User wallet not found');
 
     const challenge = await this.challengesService.findOne(challengeId);

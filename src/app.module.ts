@@ -13,6 +13,8 @@ import { MessageBrokerModule } from 'common_be';
 import { ChallengesModule } from './modules/challenges/challenges.module';
 import { RewardModule } from './modules/reward/reward.module';
 import { TokenModule } from './modules/token/token.module';
+import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
+import { HealthNewsModule } from './modules/news/news.module';
 
 dotenv.config();
 
@@ -30,6 +32,8 @@ dotenv.config();
     ChallengesModule,
     RewardModule,
     TokenModule,
+    CloudinaryModule,
+    HealthNewsModule,
     MessageBrokerModule.register({
       redisOptions: {
         host: process.env.REDIS_HOST ?? '',
