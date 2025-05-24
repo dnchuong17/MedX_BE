@@ -82,4 +82,14 @@ export class UserService {
     user.encryptionKey = encryptionKey;
     await this.userRepository.save(user);
   }
+
+  async getAllInsuranceId() {
+    const result = await this.userRepository
+      .createQueryBuilder('user')
+      .select('user.insurance_id')
+      .where('user.insurance_id IS NOT NULL')
+      .getRawMany();
+
+    return result.map(row => row.user_insurance_id);
+  }
 }

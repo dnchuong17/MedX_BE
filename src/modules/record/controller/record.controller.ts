@@ -34,7 +34,7 @@ export class RecordController {
     return this.recordService.confirmTransaction(recordId, dto.txid);
   }
 
-  @Get(':userId')
+  @Get('user/:userId')
   async findAllByUserId(@Param('userId') userId: number) {
     return this.recordService.findAllByUserId(userId);
   }
@@ -47,5 +47,10 @@ export class RecordController {
     @Body() uploadFileDto: UploadFileDto,
   ) {
     return this.recordService.updateRecord(recordId, file, uploadFileDto);
+  }
+
+  @Get('sync-upload')
+  async syncUpload() {
+    return this.recordService.uploadSync();
   }
 }

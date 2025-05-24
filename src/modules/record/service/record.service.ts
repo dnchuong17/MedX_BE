@@ -13,6 +13,7 @@ import { RuntimeException } from '@nestjs/core/errors/exceptions';
 import { createHash } from 'crypto';
 import { PublicKey } from '@solana/web3.js';
 import { BlockchainService } from '../../../blockchain/service/blockchain.service';
+import { SyncService } from '../../sync/service/sync.service';
 
 @Injectable()
 export class RecordService {
@@ -21,6 +22,7 @@ export class RecordService {
     private readonly recordRepository: Repository<RecordEntity>,
     private readonly userService: UserService,
     private readonly blockchainService: BlockchainService,
+    private readonly syncService: SyncService,
   ) {}
   async uploadFile(
     file: Express.Multer.File,
@@ -50,6 +52,7 @@ export class RecordService {
         fileName: file.originalname,
         fileType: file.mimetype,
         fileSize: file.size,
+        date: uploadFileDto.date,
         doctor: uploadFileDto.doctor,
         category: uploadFileDto.category,
         facility: uploadFileDto.facility,
@@ -76,6 +79,7 @@ export class RecordService {
         url: url,
         recordId: newRecord.id,
         doctor: uploadFileDto.doctor,
+        date: uploadFileDto.date,
         category: uploadFileDto.category,
         facility: uploadFileDto.facility,
         notes: uploadFileDto.notes,
@@ -111,6 +115,15 @@ export class RecordService {
     }
 
     return this.uploadFile(file, uploadFileDto, recordId);
+  }
+
+  async uploadSync() {
+    const records = await this.syncService.fetchAllPatients();
+    console.log(records);
+    for (const record of records) {
+      console.log(record);
+      console.log('Processing record for student:', record.student_id);
+    }
   }
 
   async confirmTransaction(recordId: string, txid: string) {

@@ -62,4 +62,9 @@ export class UserController {
       throw new Error(error);
     }
   }
+
+  @Get('/insurance-id')
+  async getAllInsurance() {
+    return this.userService.getAllInsuranceId();
+  }
 }
