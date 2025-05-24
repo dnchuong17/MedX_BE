@@ -56,4 +56,7 @@ export class UserEntity extends BaseEntity {
 
   @Column({ default: false, nullable: true })
   isSync: boolean;
+
+  @Column({ nullable: true })
+  user_UID: number;
 }
