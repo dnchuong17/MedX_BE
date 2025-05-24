@@ -23,7 +23,7 @@ dotenv.config();
     MailModule,
     JwtModule.register({
       secret: `${process.env.JWT_SECRET}`,
-      signOptions: { expiresIn: '360s' },
+      signOptions: { expiresIn: '3600s' },
     }),
     TypeOrmModule.forFeature([UserEntity]),
   ],

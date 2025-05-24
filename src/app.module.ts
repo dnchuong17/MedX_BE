@@ -10,6 +10,9 @@ import { RecordModule } from './modules/record/record.module';
 import { SyncModule } from './modules/sync/sync.module';
 import process from 'node:process';
 import { MessageBrokerModule } from 'common_be';
+import { ChallengesModule } from './modules/challenges/challenges.module';
+import { RewardModule } from './modules/reward/reward.module';
+import { TokenModule } from './modules/token/token.module';
 
 dotenv.config();
 
@@ -24,6 +27,9 @@ dotenv.config();
     BlockchainModule,
     RecordModule,
     SyncModule,
+    ChallengesModule,
+    RewardModule,
+    TokenModule,
     MessageBrokerModule.register({
       redisOptions: {
         host: process.env.REDIS_HOST ?? '',

@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "c41a1a05-5c96-4229-a4d1-246171af4dba",
-		"name": "MedX Copy",
+		"_postman_id": "21d6d467-a995-496c-b7a0-b2ddd8e99e57",
+		"name": "MedX",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37751783",
-		"_collection_link": "https://bigteam-7748.postman.co/workspace/MedX~96002cfa-a4b9-445a-b5d0-deb89e820f19/collection/37751783-c41a1a05-5c96-4229-a4d1-246171af4dba?action=share&source=collection_link&creator=37751783"
+		"_exporter_id": "37386912"
 	},
 	"item": [
 		{
@@ -374,7 +373,7 @@
 			]
 		},
 		{
-			"name": "Record (onchain)",
+			"name": "share records",
 			"item": [
 				{
 					"name": "grant record access",
@@ -466,105 +465,6 @@
 			]
 		},
 		{
-			"name": "Record (off-chain)",
-			"item": [
-				{
-					"name": "upload record",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "file",
-									"type": "file",
-									"src": "postman-cloud:///1f02902e-fddf-46a0-b442-9188b3d2614d"
-								},
-								{
-									"key": "publicKey",
-									"value": "B6AKfZRSkc6dAcgjTCZf7MeosRbhiB37NYGdDEFxBXpt",
-									"type": "text"
-								},
-								{
-									"key": "date",
-									"value": "2025-05-21",
-									"type": "text"
-								},
-								{
-									"key": "doctor",
-									"value": "Dr. Anh Tran",
-									"type": "text"
-								},
-								{
-									"key": "category",
-									"value": "General Check-up",
-									"type": "text"
-								},
-								{
-									"key": "facility",
-									"value": "Thong Nhat hospital",
-									"type": "text"
-								},
-								{
-									"key": "notes",
-									"value": "test only",
-									"type": "text"
-								},
-								{
-									"key": "userId",
-									"value": "30",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:3000/record",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"record"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "confirm upload transaction",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"txid\": \"confirmed! (test-only)\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/record/confirm-transaction/b76fea29-e44d-4a31-be36-8e78d14f66eb",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"record",
-								"confirm-transaction",
-								"b76fea29-e44d-4a31-be36-8e78d14f66eb"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Sync",
 			"item": [
 				{
@@ -596,6 +496,209 @@
 								}
 							]
 						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Challenges",
+			"item": [
+				{
+					"name": "create challenges",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Drink a cup of water\",\n  \"conditionKey\": \"water\",\n  \"conditionValue\": 0.25,\n  \"unit\": \"liters\",\n  \"timeFrame\": \"daily\",\n  \"conditionKeywords\": [\"water\", \"cup\", \"glass\"],\n  \"rewardAmount\": 5000\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/challenges",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"challenges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check challenge",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Drink a cup of water\",\n  \"conditionKey\": \"water_liters\",\n  \"conditionValue\": 0.25,\n  \"unit\": \"liters\",\n  \"timeFrame\": \"daily\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/challenges",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"challenges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all challenges",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/challenges",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"challenges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a challenges",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/challenges/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"challenges",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update challenges",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Drink a cup of water\",\n  \"conditionKey\": \"water\",\n  \"conditionValue\": 0.25,\n  \"unit\": \"liters\",\n  \"timeFrame\": \"daily\",\n  \"conditionKeywords\": [\"water\", \"cup\", \"glass\"],\n  \"rewardAmount\": 5000\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/challenges/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"challenges",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete challenges",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/challenges/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"challenges",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjgsIm5hbWUiOiJDaHVvbmcgRG8gMTIzIiwicGhvbmUiOiIwODUyNzg4NjU3In0sImlhdCI6MTc0ODA4NDI3NiwiZXhwIjoxNzQ4MDg3ODc2fQ.UGQrNexOKcP4_Si05OdxZnvyndTY1RKAX2GFHkVHzSI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/macbook/Downloads/cup of water.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/challenges/3/check-image",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"challenges",
+								"3",
+								"check-image"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Token",
+			"item": [
+				{
+					"name": "Send Token",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
